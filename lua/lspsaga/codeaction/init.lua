@@ -19,13 +19,6 @@ local function clean_ctx()
   end
 end
 
-local function clean_msg(msg)
-  if msg:find('%(.+%)%S$') then
-    return msg:gsub('%(.+%)%S$', '')
-  end
-  return msg
-end
-
 function act:action_callback(tuples, enriched_ctx)
   if #tuples == 0 then
     vim.notify('No code actions available', vim.log.levels.INFO)
@@ -41,7 +34,7 @@ function act:action_callback(tuples, enriched_ctx)
       return
     end
     if client_with_actions[2].title then
-      action_title = '**' .. index .. '** ' .. clean_msg(client_with_actions[2].title)
+      action_title = '**' .. index .. '** ' .. util.clean_msg(client_with_actions[2].title)
     end
     if config.code_action.show_server_name == true then
       if type(client_with_actions[1]) == 'string' then
