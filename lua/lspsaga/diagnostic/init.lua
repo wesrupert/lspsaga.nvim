@@ -82,7 +82,7 @@ function diag:code_action_cb(action_tuples, enriched_ctx, win_conf)
       return
     end
     if client_with_actions[2].title then
-      local action_title = '**' .. index .. '** ' .. client_with_actions[2].title
+      local action_title = '**' .. index .. '** ' .. util.clean_msg(client_with_actions[2].title)
       contents[#contents + 1] = action_title
     end
   end

@@ -37,6 +37,12 @@ function M.path_sub(fname, root)
   return fname:gsub(vim.pesc(root), '')
 end
 
+function M.clean_msg(msg)
+  return msg
+    :gsub('%(.+%)%S$', '')
+    :gsub('~/', '$HOME/')
+end
+
 --get icon hlgroup color
 function M.icon_from_devicon(ft)
   local ok, devicons = pcall(require, 'nvim-web-devicons')
@@ -263,7 +269,7 @@ function M.valid_markdown_parser()
   local parsers = { 'parser/markdown.so', 'parser/markdown_inline.so' }
   for _, p in ipairs(parsers) do
     if #api.nvim_get_runtime_file(p, true) == 0 then
-      vim.notify_once('[Lspsaga] for better experience instal markdown relate tresitter parser')
+      vim.notify_once('[Lspsaga] for better experience install markdown relate treesitter parser')
       return
     end
   end
